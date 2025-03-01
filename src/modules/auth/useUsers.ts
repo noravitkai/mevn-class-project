@@ -36,7 +36,7 @@ export const useUsers = () => {
       user.value = authResponse.data.user;
       isLoggedIn.value = true;
       localStorage.setItem("lsToken", authResponse.data.token);
-      localStorage.setItem("userIDToken", authResponse.data.userID);
+      localStorage.setItem("userIdToken", authResponse.data.userId);
       console.log("User's logged in successfully", authResponse);
       console.log("Token:", token.value);
     } catch (err) {

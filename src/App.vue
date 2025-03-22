@@ -6,7 +6,13 @@
         <RouterLink to="/about" class="mr-4">About</RouterLink>
         <RouterLink to="/products" class="mr-4">Products</RouterLink>
         <RouterLink to="/auth" class="mr-4">Auth</RouterLink>
-        <RouterLink to="/admin" class="mr-4">Admin</RouterLink>
+        <RouterLink v-if="isLoggedIn" to="/admin" class="mr-4"
+          >Admin</RouterLink
+        >
+
+        <button v-if="isLoggedIn" @click="logoutUser" class="text-zinc-700">
+          Logout
+        </button>
 
         <!-- RouterLink to products, Auth, Admin & and logout button -->
 
@@ -23,7 +29,14 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { RouterLink, RouterView } from "vue-router";
+import { useUsers } from "./modules/auth/useUsers";
+import { state } from "./modules/globalStates/state";
+
+const { logoutUser } = useUsers();
+
+const isLoggedIn = computed(() => state.isLoggedIn);
 </script>
 
 <style scoped>

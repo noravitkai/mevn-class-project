@@ -37,6 +37,7 @@
               Product Details
             </button>
             <button
+              @click="addToCart(product)"
               class="bg-green-500 text-white px-1 py-2 rounded hover:bg-green-600"
             >
               Add to Cart
@@ -52,6 +53,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useProducts } from "../modules/useProducts";
+import { useCart } from "../modules/cart/useCart";
+
+const { addToCart } = useCart();
 
 const { loading, error, products, fetchProducts } = useProducts();
 

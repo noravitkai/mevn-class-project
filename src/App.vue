@@ -9,6 +9,9 @@
         <RouterLink v-if="isLoggedIn" to="/admin" class="mr-4"
           >Admin</RouterLink
         >
+        <RouterLink v-if="isLoggedIn" to="/orders" class="mr-4"
+          >Orders</RouterLink
+        >
 
         <button
           v-if="isLoggedIn"
@@ -31,7 +34,7 @@
   <RouterView />
 
   <!-- CartBasket component -->
-  <CartBasket v-if="isCartVisible" :isVisible="isCartVisible" />
+  <CartBasket v-if="isCartVisible" v-model:isVisible="isCartVisible" />
 </template>
 
 <script setup lang="ts">

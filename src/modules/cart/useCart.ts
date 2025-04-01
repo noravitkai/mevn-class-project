@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import type { CartItem } from "../../interfaces/interfaces";
+import type { CartItem, Order, OrderLine } from "../../interfaces/interfaces";
 
 export const useCart = () => {
   const cart = ref<CartItem[]>(
@@ -72,6 +72,43 @@ export const useCart = () => {
     );
   };
 
+  // Checkout
+  const placeOrder = () => {
+    const storedOrders = localStorage.getItem("orders");
+    const existingOrders: Order[] = storedOrders
+      ? JSON.parse(storedOrders)
+      : [];
+
+    const newOrderId = `ORD-${Date.now()}`;
+    const newOrderDate = new Date().toISOString();
+
+    const lines: OrderLine[] = cart.value.map((item) => ({
+      productId: item._id,
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      total: item.price * item.quantity,
+      imageURL: item.imageURL,
+    }));
+
+    const totalPrice = lines.reduce((sum, item) => sum + item.total, 0);
+
+    const newOrder: Order = {
+      orderId: newOrderId,
+      userName: "User",
+      date: newOrderDate,
+      status: "pending",
+      lines,
+      totalPrice: parseFloat(totalPrice.toFixed(2)),
+    };
+
+    existingOrders.push(newOrder);
+    localStorage.setItem("orders", JSON.stringify(existingOrders));
+
+    cart.value = [];
+    localStorage.setItem("cart", JSON.stringify([]));
+  };
+
   return {
     cart,
     addToCart,
@@ -82,5 +119,6 @@ export const useCart = () => {
     salesTax,
     code,
     grandTotal,
+    placeOrder,
   };
 };

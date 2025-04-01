@@ -44,3 +44,23 @@ export type CartItem = {
   quantity: number;
   imageURL: string;
 };
+
+// One item
+export type OrderLine = {
+  productId: string;
+  name: string;
+  quantity: number;
+  price: number;
+  total: number;
+  imageURL: string;
+};
+
+// All items
+export type Order = {
+  orderId: string;
+  userName: string;
+  date: string;
+  status: "pending" | "confirmed" | "shipped";
+  lines: OrderLine[];
+  totalPrice: number;
+};

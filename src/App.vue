@@ -24,6 +24,7 @@
         <button @click="toggleCart" class="text-zinc-700">Cart</button>
 
         <!-- Routerlink to orders -->
+        <RouterLink to="/orders" class="mx-4">Orders</RouterLink>
       </nav>
     </div>
   </header>

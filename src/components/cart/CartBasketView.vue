@@ -85,6 +85,7 @@
           <!-- Grand total in the cart -->
           <div class="flex justify-end">
             <button
+              @click="checkOutBuy"
               class="bg-green-600 text-white p-2 mt-4 rounded hover:bg-green-700"
             >
               Checkout
@@ -99,6 +100,7 @@
 
 <script setup lang="ts">
 import { useCart } from "../../modules/cart/useCart";
+import { useRouter } from "vue-router";
 
 const isVisible = defineModel<boolean>("isVisible");
 
@@ -115,6 +117,13 @@ const {
   salesTax,
   grandTotal,
 } = useCart();
+
+const router = useRouter();
+
+const checkOutBuy = (): void => {
+  router.push("/cart");
+  isVisible.value = false;
+};
 </script>
 
 <style scoped>
